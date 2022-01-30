@@ -4,23 +4,25 @@ import {
   Box,
   Container,
   createTheme,
-  CssBaseline, IconButton,
+  CssBaseline,
+  IconButton,
   ThemeProvider,
   Toolbar,
+  Tooltip,
   Typography,
 } from '@mui/material';
-import { BrightnessHigh, BrightnessLow } from '@mui/icons-material';
+import { BrightnessHigh, BrightnessLow, GitHub } from '@mui/icons-material';
 import AnalyzerScreen from './AnalyzerScreen';
 
 const App: React.FC = () => {
-  const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [isDark, setDark] = useState(prefersDarkMode);
 
   const theme = useMemo(() => createTheme({
     palette: {
       primary: {
         main: '#d18f21',
-        contrastText: '#fff'
+        contrastText: '#fff',
       },
       background: {
         default: isDark ? '#3e3e3e' : '#f2f2f2',
@@ -36,9 +38,20 @@ const App: React.FC = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Arma Server Log Analyzer
         </Typography>
-        <IconButton onClick={() => setDark(!isDark)}>
-          {isDark ? <BrightnessHigh /> : <BrightnessLow />}
-        </IconButton>
+        <Tooltip title="Toggle Dark Mode">
+          <IconButton onClick={() => setDark(!isDark)}>
+            {isDark ? <BrightnessHigh /> : <BrightnessLow />}
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="GitHub Repository">
+          <IconButton
+            href="https://github.com/jannes-io/arma-log-analyzer"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <GitHub />
+          </IconButton>
+        </Tooltip>
       </Toolbar>
     </AppBar>
     <Container maxWidth="xl">
@@ -46,7 +59,7 @@ const App: React.FC = () => {
         <AnalyzerScreen />
       </Box>
     </Container>
-  </ThemeProvider>
+  </ThemeProvider>;
 };
 
 export default App;

@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "airbnb-typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "spaced-comment": 0,
+    "no-prototype-builtins": 0,
+    "react/prop-types": 0,
+    "object-curly-newline": 0,
+    "import/no-cycle": 0,
+    "import/no-named-as-default": 0,
+    "react/display-name": 0,
+    "react/jsx-indent-props": 0,
+    "react/jsx-wrap-multilines": 0,
+    "react/jsx-closing-tag-location": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "curly": ["error", "all"]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

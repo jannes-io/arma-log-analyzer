@@ -8,7 +8,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-  LineChart, CartesianGrid
+  LineChart, CartesianGrid,
 } from 'recharts';
 
 interface IChartContainerProps {

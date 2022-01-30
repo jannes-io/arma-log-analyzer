@@ -4,7 +4,7 @@ import { IServerLoadData } from '../../types';
 import {
   BandwidthChart, ChartContainer, GuaranteedMsgChart, MemoryChart, NonGuaranteedMsgChart,
   PlayerCountChart,
-  ServerFpsChart
+  ServerFpsChart,
 } from './Components/Charts';
 
 const Input = styled('input')({
@@ -14,7 +14,7 @@ const Input = styled('input')({
 const Pre = styled('pre')({
   display: 'inline',
   margin: 0,
-})
+});
 
 const AnalyzerScreen: React.FC = () => {
   const [fileData, setFileData] = useState<IServerLoadData[] | undefined>(undefined);
@@ -24,7 +24,7 @@ const AnalyzerScreen: React.FC = () => {
 
   const parseData = (data: string) => data
     .split('\n').filter((ln) => ln.includes('Server load'))
-    .map((ln) => /^(\d+:\d+:\d+) Server load: FPS (\d+), memory used: (\d+) MB, out: (\d+) Kbps, in: (\d+) Kbps, NG:(\d+), G:(\d+), BE-NG:\d+, BE-G:\d+, Players: (\d+) \(.+\)$/g.exec(ln))
+    .map((ln) => /^(\d+:\d+:\d+) Server load: FPS (\d+), memory used: (\d+) MB, out: (\d+) Kbps, in: (\d+) Kbps, NG:(\d+), G:(\d+), BE-NG:\d+, BE-G:\d+, Players: (\d+)/g.exec(ln))
     .filter((arr): arr is RegExpExecArray => arr !== null)
     .map((arr, i): IServerLoadData => ({
       order: i,
@@ -35,7 +35,7 @@ const AnalyzerScreen: React.FC = () => {
       transferIn: parseInt(arr[5], 10),
       nonGuaranteed: parseInt(arr[6], 10),
       guaranteed: parseInt(arr[7], 10),
-      players: parseInt(arr[8], 10)
+      players: parseInt(arr[8], 10),
     }));
 
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +66,8 @@ const AnalyzerScreen: React.FC = () => {
       <Typography>This tool aims to assist in server performance debugging.</Typography>
       <Typography paddingBottom={1}>Instructions:</Typography>
       <Typography component="ul">
-        <li>Enable server performance logging with the <Pre>#monitords {"<seconds>"}</Pre> command,</li>
+        <li>Enable server performance logging with the <Pre>#monitords {'<seconds>'}</Pre> command,
+        </li>
         <li>Load the resulting server log file using the button below,</li>
         <li>Adjust the time scale to zoom in/out.</li>
       </Typography>
