@@ -129,11 +129,11 @@ export const BandwidthChart: React.FC<IChartProps> = React.memo(({ data }) => {
   </ResponsiveContainer>;
 }, chartPropsEqual);
 
-export const GuaranteedMsgChart: React.FC<IChartProps> = React.memo(({ data }) => {
+export const MessagesChart: React.FC<IChartProps> = React.memo(({ data }) => {
   const { palette } = useTheme();
   const tooltipContentStyle = useTooltipContentStyle();
 
-  const chartData = data.map(({ time, guaranteed }) => ({ label: time, value: guaranteed }));
+  const chartData = data.map(({ time, guaranteed, nonGuaranteed }) => ({ label: time, guaranteed, nonGuaranteed }));
 
   return <ResponsiveContainer>
     <LineChart data={chartData} syncId="perf">
@@ -141,24 +141,8 @@ export const GuaranteedMsgChart: React.FC<IChartProps> = React.memo(({ data }) =
       <YAxis />
       <Tooltip contentStyle={tooltipContentStyle} />
       <CartesianGrid strokeDasharray="3 3" stroke={palette.background.default} />
-      <Line type="monotone" dataKey="value" stroke={palette.primary.main} dot={false} />
-    </LineChart>
-  </ResponsiveContainer>;
-}, chartPropsEqual);
-
-export const NonGuaranteedMsgChart: React.FC<IChartProps> = React.memo(({ data }) => {
-  const { palette } = useTheme();
-  const tooltipContentStyle = useTooltipContentStyle();
-
-  const chartData = data.map(({ time, nonGuaranteed }) => ({ label: time, value: nonGuaranteed }));
-
-  return <ResponsiveContainer>
-    <LineChart data={chartData} syncId="perf">
-      <XAxis dataKey="label" />
-      <YAxis />
-      <Tooltip contentStyle={tooltipContentStyle} />
-      <CartesianGrid strokeDasharray="3 3" stroke={palette.background.default} />
-      <Line type="monotone" dataKey="value" stroke={palette.primary.main} dot={false} />
+      <Line type="monotone" dataKey="guaranteed" stroke={palette.primary.main} dot={false} />
+      <Line type="monotone" dataKey="nonGuaranteed" stroke={palette.secondary.main} dot={false} />
     </LineChart>
   </ResponsiveContainer>;
 }, chartPropsEqual);
